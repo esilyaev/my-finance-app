@@ -37,13 +37,17 @@ const dayLimit = computed(() => {
   return props.limit - transactionsSum
 })
 
+const transactionTypeForNew = ref<TransactionType>(null)
 const modal = ref(false)
-
-const addCredit = () => {
+const openModal = (type: TransactionType) => {
+  transactionTypeForNew.value = type
   modal.value = true
 }
-const addDebit = () => {
-  transactions.value.push({ title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.DEB })
+
+const addTransaction = (payload: any) => {
+  console.log(payload);
+  modal.value = false
+  transactions.value.push(payload)
 }
 
 </script>
@@ -62,12 +66,13 @@ const addDebit = () => {
     <q-card-actions class="justify-end">
       <div class="q-pa-md">{{ parseFloat(dayLimit.toString()).toFixed(2) }}
       </div>
-      <q-btn flat round color="green" icon="add" @click="addCredit" />
-      <q-btn flat round color="red" icon="remove" @click="addDebit" />
+      <q-btn flat round color="green" icon="add" @click="openModal(TransactionType.CRE)" />
+      <q-btn flat round color="red" icon="remove" @click="openModal(TransactionType.DEB)" />
     </q-card-actions>
   </q-card>
 
-  <create-transaction-modal :isActive="modal" @hide="modal=false" @ok="modal=false" />
+  <create-transaction-modal :isActive="modal" @hide="modal=false" @ok="addTransaction"
+    :type="transactionTypeForNew" />
 </template>
 
 

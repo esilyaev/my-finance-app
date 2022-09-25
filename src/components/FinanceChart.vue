@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import DayCard from './DayCard.vue';
+import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
+
 
 const getAllDaysInMonth = (month: number, year: number) =>
   Array.from(
@@ -16,7 +18,7 @@ const limit = ref('')
 const evaluatedMoney = computed(() => parseFloat(limit.value) / dayOfMountByName.value.length)
 const numOfRows = 1
 const cardPerDay = 7
-
+const modal = ref(true)
 
 
 </script>
@@ -34,10 +36,12 @@ const cardPerDay = 7
       </div>
     </div>
   </div>
-</template>
 
+</template>
+  
 <style scoped>
 .my-card {
   color: black
 }
 </style>
+  
