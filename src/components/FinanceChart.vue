@@ -12,9 +12,10 @@ const dayOfMountByName = ref<string[]>([]);
 dayOfMountByName.value = dayOfMount.map(x =>
   x.toLocaleDateString([], { month: "short", day: "numeric" })
 )
-const evaluatedMoney = 100000 / dayOfMountByName.value.length
+const limit = ref('')
+const evaluatedMoney = computed(() => parseFloat(limit.value) / dayOfMountByName.value.length)
 const numOfRows = 1
-const cardPerDay = 6
+const cardPerDay = 7
 
 
 
@@ -23,6 +24,9 @@ const cardPerDay = 6
 <template>
   <h3>My finance app</h3>
   <div class="container" style="">
+    <div class="flex justify-end">
+      <q-input v-model="limit" label="Mouthy income" />
+    </div>
     <div class="row q-tp-md" v-for="row in numOfRows">
       <div class="col q-pa-xs" style="width: 16%;" v-for="col in cardPerDay">
         <day-card :limit="evaluatedMoney"
