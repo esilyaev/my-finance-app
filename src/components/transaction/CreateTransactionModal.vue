@@ -1,7 +1,7 @@
 <template>
   <!-- notice dialogRef here -->
   <q-dialog ref="dialogRef" @hide="onDialogHide" v-model="isShow">
-    <q-card class="q-dialog-plugin">
+    <q-card class="q-dialog-plugin q-pa-md">
       <q-card-section>
         <q-input v-model="name" label="Name" :rules="[ val => !!val || 'Please input name' ]" />
       </q-card-section>

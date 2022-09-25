@@ -63,11 +63,13 @@ const addTransaction = (payload: any) => {
 
 
     <q-separator />
-    <q-card-actions class="justify-end">
-      <div class="q-pa-md">{{ parseFloat(dayLimit.toString()).toFixed(2) }}
+    <q-card-actions class="justify-between">
+      <div class="q-pa-xs">{{ parseFloat(dayLimit.toString()).toFixed(2) }}
       </div>
-      <q-btn flat round color="green" icon="add" @click="openModal(TransactionType.CRE)" />
-      <q-btn flat round color="red" icon="remove" @click="openModal(TransactionType.DEB)" />
+      <div class="actions">
+        <q-btn flat round color="green" icon="add" @click="openModal(TransactionType.CRE)" />
+        <q-btn flat round color="red" icon="remove" @click="openModal(TransactionType.DEB)" />
+      </div>
     </q-card-actions>
   </q-card>
 
