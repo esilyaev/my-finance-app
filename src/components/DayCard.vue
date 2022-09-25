@@ -4,6 +4,7 @@ import { ITransaction, TransactionType } from '../types/ITransaction';
 import TransactionList from './transaction/TransactionList.vue';
 import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
 
+
 const props = defineProps({
   limit: {
     type: Number,
@@ -54,13 +55,11 @@ const addTransaction = (payload: any) => {
 
 <template>
   <q-card class="my-card">
-    <transaction-list :transactions="transactions" />
-
-    <q-card-section>
+    <q-card-section class="text-subtitle1">
       {{ name }}
     </q-card-section>
 
-
+    <transaction-list :transactions="transactions" />
 
     <q-separator />
     <q-card-actions class="justify-between">
