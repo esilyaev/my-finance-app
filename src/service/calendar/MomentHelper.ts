@@ -6,8 +6,7 @@ class MomentHelper {
   m = moment
 
   constructor() {
-    this.m.locale('ru')
-    
+    this.m.locale('ru') 
   }
 
   getDayOfWeekName = (date: Date) => {

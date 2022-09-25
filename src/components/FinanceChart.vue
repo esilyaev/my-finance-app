@@ -25,7 +25,7 @@ const { weekStart, weekEnd } = CalendarHelper.GetCurrentWeekStartEnd()
 </script>
 
 <template>
-  <h3>My finance app</h3>
+
   <div class="text-subtitle1">
     Week: {{ MomentHelper.getFormatDate(weekStart) }} - {{ MomentHelper.getFormatDate(weekEnd) }}
   </div>

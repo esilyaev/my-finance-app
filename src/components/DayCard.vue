@@ -4,8 +4,7 @@ import { ITransaction, TransactionType } from '../types/ITransaction';
 import TransactionList from './transaction/TransactionList.vue';
 import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
 import { Moment } from 'moment';
-import { PropType } from 'vue';
-import MomentHelper from '../service/calendar/MomentHelper';
+
 
 
 const props = defineProps<{
@@ -42,14 +41,15 @@ const openModal = (type: TransactionType) => {
   modal.value = true
 }
 
-const addTransaction = (payload: any) => {
+const addTransaction = (payload: ITransaction) => {
   console.log(payload);
+  payload.date = props.date.toDate()
   modal.value = false
   transactions.value.push(payload)
 }
 
 const name = computed(() =>
-  MomentHelper.getDayOfWeekName(props.date.toDate())
+  props.date.format('dddd')
 )
 
 </script>
