@@ -25,14 +25,17 @@ const { weekStart, weekEnd } = CalendarHelper.GetCurrentWeekStartEnd()
 </script>
 
 <template>
-
-  <div class="text-subtitle1">
-    Week: {{ MomentHelper.getFormatDate(weekStart) }} - {{ MomentHelper.getFormatDate(weekEnd) }}
-  </div>
-  <div class="container" style="">
+  <div class="flex justify-between q-mt-md items-center">
+    <div class="text-subtitle1">
+      Week: {{ MomentHelper.getFormatDate(weekStart) }} - {{ MomentHelper.getFormatDate(weekEnd) }}
+    </div>
     <div class="flex justify-end">
       <q-input v-model="limit" label="Mouthy income" />
     </div>
+  </div>
+
+  <div class="container" style="">
+
 
     <div class="row q-mt-md">
       <div class="col q-pa-xs" style="width: 16%;" v-for="col in cardPerDay">
