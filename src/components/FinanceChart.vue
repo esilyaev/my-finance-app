@@ -38,9 +38,3 @@ const cardPerDay = 7
 
 </template>
   
-<style scoped>
-.my-card {
-  color: black
-}
-</style>
-  
