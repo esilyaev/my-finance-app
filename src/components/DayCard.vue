@@ -3,18 +3,15 @@ import { computed, ref } from '@vue/reactivity';
 import { ITransaction, TransactionType } from '../types/ITransaction';
 import TransactionList from './transaction/TransactionList.vue';
 import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
+import { Moment } from 'moment';
+import { PropType } from 'vue';
+import MomentHelper from '../service/calendar/MomentHelper';
 
 
-const props = defineProps({
-  limit: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-})
+const props = defineProps<{
+  limit: number,
+  date: Moment
+}>()
 
 const transactions = ref<ITransaction[]>([
   { title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.DEB },
@@ -50,6 +47,10 @@ const addTransaction = (payload: any) => {
   modal.value = false
   transactions.value.push(payload)
 }
+
+const name = computed(() =>
+  MomentHelper.getDayOfWeekName(props.date.toDate())
+)
 
 </script>
 

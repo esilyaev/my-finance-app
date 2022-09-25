@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.15.3",
+    "moment": "^2.29.4",
     "quasar": "^2.8.4",
     "vue": "^3.2.37"
   },
