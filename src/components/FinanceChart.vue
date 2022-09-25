@@ -26,7 +26,7 @@ const { weekStart, weekEnd } = CalendarHelper.GetCurrentWeekStartEnd()
 
 <template>
   <div class="flex justify-between q-mt-md items-center">
-    <div class="text-subtitle1">
+    <div class="text-h5">
       Week: {{ MomentHelper.getFormatDate(weekStart) }} - {{ MomentHelper.getFormatDate(weekEnd) }}
     </div>
     <div class="flex justify-end">
