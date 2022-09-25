@@ -2,6 +2,7 @@
 import { computed, ref } from '@vue/reactivity';
 import { ITransaction, TransactionType } from '../types/ITransaction';
 import TransactionList from './transaction/TransactionList.vue';
+import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
 
 const props = defineProps({
   limit: {
@@ -20,12 +21,7 @@ const transactions = ref<ITransaction[]>([
   { title: 'Обед в столовой', amount: 350, date: new Date(), type: TransactionType.DEB }
 ])
 
-const addCredit = () => {
-  transactions.value.push({ title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.CRE })
-}
-const addDebit = () => {
-  transactions.value.push({ title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.DEB })
-}
+
 
 const dayLimit = computed(() => {
   const transactionsSum = transactions.value.reduce((accumulator, transaction) => {
@@ -41,6 +37,14 @@ const dayLimit = computed(() => {
   return props.limit - transactionsSum
 })
 
+const modal = ref(false)
+
+const addCredit = () => {
+  modal.value = true
+}
+const addDebit = () => {
+  transactions.value.push({ title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.DEB })
+}
 
 </script>
 
@@ -62,6 +66,8 @@ const dayLimit = computed(() => {
       <q-btn flat round color="red" icon="remove" @click="addDebit" />
     </q-card-actions>
   </q-card>
+
+  <create-transaction-modal :isActive="modal" @hide="modal=false" @ok="modal=false" />
 </template>
 
 
