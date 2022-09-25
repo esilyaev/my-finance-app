@@ -98,7 +98,7 @@ export default defineComponent({
       // we can passthrough onDialogCancel directly
       onCancelClick() {
         resetForm()
-        onDialogCancel()
+        emit('hide')
       },
 
     }
