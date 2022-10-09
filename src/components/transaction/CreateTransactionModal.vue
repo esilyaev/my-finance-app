@@ -63,7 +63,7 @@ export default defineComponent({
         title: name.value,
         amount: parseFloat(amount.value),
         type: props.type,
-        date: new Date()
+        date: null
       }
     }
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import DayCard from './DayCard.vue';
+import CalendarHelper from '../service/calendar/CalendarHelper';
+import MomentHelper from '../service/calendar/MomentHelper';
 
 
 const getAllDaysInMonth = (month: number, year: number) =>
@@ -15,23 +17,30 @@ dayOfMountByName.value = dayOfMount.map(x =>
 )
 const limit = ref('')
 const evaluatedMoney = computed(() => parseFloat(limit.value) / dayOfMountByName.value.length)
-const numOfRows = 1
 const cardPerDay = 7
+
+const { weekStart, weekEnd } = CalendarHelper.GetCurrentWeekStartEnd()
 
 
 </script>
 
 <template>
-  <h3>My finance app</h3>
-  <div class="container" style="">
+  <div class="flex justify-between q-mt-md items-center">
+    <div class="text-h5">
+      Week: {{ MomentHelper.getFormatDate(weekStart) }} - {{ MomentHelper.getFormatDate(weekEnd) }}
+    </div>
     <div class="flex justify-end">
       <q-input v-model="limit" label="Mouthy income" />
     </div>
+  </div>
 
-    <div class="row q-mt-md" v-for="row in numOfRows">
+  <div class="container" style="">
+
+
+    <div class="row q-mt-md">
       <div class="col q-pa-xs" style="width: 16%;" v-for="col in cardPerDay">
         <day-card :limit="evaluatedMoney"
-          :name="dayOfMountByName[(row-1)*6 + (col-1)] || 'empty'" />
+          :date="MomentHelper.getDateUntil(weekStart, col, 'days')" />
       </div>
     </div>
   </div>

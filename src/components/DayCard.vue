@@ -3,18 +3,14 @@ import { computed, ref } from '@vue/reactivity';
 import { ITransaction, TransactionType } from '../types/ITransaction';
 import TransactionList from './transaction/TransactionList.vue';
 import CreateTransactionModal from './transaction/CreateTransactionModal.vue';
+import { Moment } from 'moment';
 
 
-const props = defineProps({
-  limit: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-})
+
+const props = defineProps<{
+  limit: number,
+  date: Moment
+}>()
 
 const transactions = ref<ITransaction[]>([
   { title: 'Кофе', amount: 100, date: new Date(), type: TransactionType.DEB },
@@ -45,11 +41,16 @@ const openModal = (type: TransactionType) => {
   modal.value = true
 }
 
-const addTransaction = (payload: any) => {
+const addTransaction = (payload: ITransaction) => {
   console.log(payload);
+  payload.date = props.date.toDate()
   modal.value = false
   transactions.value.push(payload)
 }
+
+const name = computed(() =>
+  props.date.format('dddd')
+)
 
 </script>
 
