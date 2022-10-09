@@ -1,13 +1,28 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+import auth from '../api/auth';
+import { useAuthStore } from '../stores/store_auth';
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
 
+const store = useAuthStore()
+
+const router = useRouter()
+
+
+onMounted(() => {
+  if (store.isAuthenticated) {
+    router.push('finance-chart')
+  }
+})
 
 const $q = useQuasar()
 
 const name = ref(null)
-const age = ref(null)
 const accept = ref(false)
+const password = ref('')
+const isPwd = ref(true)
 
 const onSubmit = () => {
   if (accept.value !== true) {
@@ -25,14 +40,18 @@ const onSubmit = () => {
       icon: 'cloud_done',
       message: 'Submitted'
     })
+    auth.login(name.value, password.value)
+
   }
 }
 
 const onReset = () => {
   name.value = null
-  age.value = null
+  password.value = null
   accept.value = false
 }
+
+
 
 </script>
 
@@ -41,15 +60,18 @@ const onReset = () => {
   <div class="q-pa-md" style="max-width: 400px">
 
     <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-      <q-input filled v-model="name" label="Your name *" hint="Name and surname"
-        lazy-rules
+      <q-input dense filled v-model="name" label="Your name *"
+        hint="Name and surname" lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please type something']" />
 
-      <q-input filled type="number" v-model="age" label="Your age *" lazy-rules
-        :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
-        ]" />
+      <q-input dense v-model="password" filled label="Your password *"
+        :type="isPwd ? 'password' : 'text'" hint="Password with toggle"
+        :rules="[ val => val && val.length > 0 || 'Please type something']">
+        <template v-slot:append>
+          <q-icon :name=" isPwd ? 'visibility_off' : 'visibility'"
+            class=" cursor-pointer" @click="isPwd = !isPwd" />
+        </template>
+      </q-input>
 
       <q-toggle v-model="accept" label="I accept the license and terms" />
 
