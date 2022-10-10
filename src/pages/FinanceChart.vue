@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { users } from '../api/users';
 import DayCard from '../components/DayCard.vue';
 import CalendarHelper from '../service/calendar/CalendarHelper';
 import MomentHelper from '../service/calendar/MomentHelper';
 
+
+onMounted(async () => {
+  const api_users = await users.fetchUsers()
+  console.log(api_users.data);
+
+})
 
 const getAllDaysInMonth = (month: number, year: number) =>
   Array.from(

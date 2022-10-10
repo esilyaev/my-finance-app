@@ -6,7 +6,7 @@ class Auth {
   login(username: string, password: string) {
     const data = { username, password };
 
-    api.post('token/', data)
+    api.client.post('token/', data)
       .then((res) => {
         const store = useAuthStore()
         store.token = res.data.access
@@ -14,5 +14,6 @@ class Auth {
       })
       .catch(e => console.log(e))
   }
+
 }
 export default new Auth()
