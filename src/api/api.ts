@@ -46,7 +46,9 @@ api.client.interceptors.response.use(
       error.response.status !== 401 ||
       error.config.retry
     ) {
-      throw error;
+      store.token = null
+      store.refresh = null
+      window.location.replace('/login')
     }
 
     if (!api.isRefreshing) {

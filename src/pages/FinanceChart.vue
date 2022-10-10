@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import auth from '../api/auth';
 import { users } from '../api/users';
 import DayCard from '../components/DayCard.vue';
 import CalendarHelper from '../service/calendar/CalendarHelper';
@@ -34,6 +35,10 @@ const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
+const logout = () => {
+  auth.logout()
+}
+
 
 </script>
 
@@ -51,6 +56,7 @@ const toggleLeftDrawer = () => {
           <q-route-tab to="/page1" label="Page One" />
           <q-route-tab to="/page2" label="Page Two" />
           <q-route-tab to="/page3" label="Page Three" />
+          <q-route-tab label="Log out" @click="logout" />
         </q-tabs>
       </q-toolbar>
 

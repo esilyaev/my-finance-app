@@ -11,11 +11,12 @@ const store = useAuthStore()
 const router = useRouter()
 
 
-onMounted(() => {
-  if (store.isAuthenticated) {
-    router.push('finance-chart')
-  }
-})
+watch(() => store.isAuthenticated,
+  () => {
+    if (store.isAuthenticated) {
+      router.push('finance-chart')
+    }
+  })
 
 const $q = useQuasar()
 

@@ -2,6 +2,12 @@ import { useAuthStore } from '../stores/store_auth';
 import { api } from './api'
 
 class Auth {
+  logout() {
+    const auth_store = useAuthStore()
+    auth_store.token = null
+    auth_store.refresh = null
+    window.location.replace('/login')
+  }
 
   login(username: string, password: string) {
     const data = { username, password };
